@@ -4,8 +4,8 @@ const { errorHttp } = require("../middlewares/errorHandler");
 
 const LIMIT_DEFAULT = 10;
 const LIMIT_MAKS = 50;
-const FIELD_SORT = ["nama", "divisi", "createdAt"];
-const FIELD_BOLEH_DIPILIH = ["nama", "kodeTim", "jumlahPemain","divisi", "kapten", "gameId", "createdAt"];
+const FIELD_SORT = ["namaTim", "divisi", "createdAt"];
+const FIELD_BOLEH_DIPILIH = ["namaTim", "kodeTim", "jumlahPemain","divisi", "kapten", "gameId", "createdAt"];
 
 // Mengubah bilangan dari query string menjadi bilangan bulat yang aman
 function angkaAman(nilai, bawaan, min, maks) {
@@ -64,7 +64,7 @@ exports.getAll = async (req, res) => {
   // populate() otomatis menambahkan prodiId ke hasil, jadi hanya dipanggil
   // bila prodiId memang diminta (atau bila tidak ada pemilihan field)
   if (!select || select.split(" ").includes("gameId")) {
-    query.populate("gameId", "nama");
+    query.populate("gameId", "namaTim");
   }
 
   const [data, total] = await Promise.all([
